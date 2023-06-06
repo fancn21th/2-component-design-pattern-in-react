@@ -16,22 +16,18 @@ const AppLayout = (props: AppLayoutProps) => {
     <BrowserRouter>
       <Layout
         sideNav={
-          <SubNav ariaLabel="Builder sub nav">
+          <SubNav ariaLabel="Comp Design Patterns">
             <SubNavHeader
               searchable
               value=""
               onClear={() => {}}
               onChange={() => {}}
-              label="Builder"
+              label="Comp Design Patterns"
               searchLabel="Search..."
             />
             <SubNavSections>
-              <SubNavSection
-                label="Collection Type"
-                collapsable
-                badgeLabel={"12"}
-              >
-                <SubNavLink to="/pagination">hi</SubNavLink>
+              <SubNavSection label="patterns" collapsable badgeLabel={"1"}>
+                <SubNavLink to="/pagination">pagination</SubNavLink>
               </SubNavSection>
             </SubNavSections>
           </SubNav>
