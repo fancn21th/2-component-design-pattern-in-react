@@ -1,10 +1,11 @@
-import { ThemeProvider, lightTheme, Button } from "@strapi/design-system";
+import Providers from "@/components/Providers";
+import AppLayout from "@/layouts/AppLayout";
 
 function App() {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <Button>Default button</Button>
-    </ThemeProvider>
+    <Providers>
+      <AppLayout />
+    </Providers>
   );
 }
 
