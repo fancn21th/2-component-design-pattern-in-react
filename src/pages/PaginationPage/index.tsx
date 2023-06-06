@@ -1,5 +1,12 @@
-import { HeaderLayout, ContentLayout, Button } from "@strapi/design-system";
+import {
+  HeaderLayout,
+  ContentLayout,
+  Button,
+  Box,
+  Flex,
+} from "@strapi/design-system";
 import { Plus } from "@strapi/icons";
+import Pagination from "@/components/Pagination";
 
 export type PaginationPageProps = {};
 
@@ -12,7 +19,9 @@ const PaginationPage = (props: PaginationPageProps) => {
         subtitle="A pagination component for navigating through pages."
         as="h2"
       />
-      <ContentLayout></ContentLayout>
+      <ContentLayout>
+        <Pagination current={2}></Pagination>
+      </ContentLayout>
     </>
   );
 };
