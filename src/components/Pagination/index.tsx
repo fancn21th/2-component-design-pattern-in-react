@@ -13,59 +13,57 @@ export type PaginationComponentProps = {
   onPageChange: (current: number) => void;
 };
 
+const MaxPaginationSize = 10;
+const CurrentPageNeighbourSize = 5;
+
 /**
- * notion: 当前页码 从1开始
- * use cases:
- * - show 10 pages max
- * 1. 1,2,3,4,5,6,7,8,9,10
- * - when larger than 10 pages find the omit part
- * - it looks like you press hard on the line and same pages at the far away side will be squeezed out
- * 2. 1,2,3,4,(5),6,7,8,***,11
- * 3. 1,***,4,5,(6),7,8,9,10,11
+ * Rules:
+ *  1. 当前页码 从1开始
+ *
+ * Design Principles:
+ *  1. Separation from UI to States
+ *    1.1  no more than 10 links
+ *    1.2  bigger than 10 links
+ *        1.2.1 generate current page group ( including current and its neighbors )
+ *        1.2.2 fill the rest
+ *          1.2.2.1  current page group at the beginning
+ *          1.2.2.2  current page group at the end
+ *          1.2.2.3  current page group in the middle
+ *
+ *  2. States Overlapping
+ *
  *
  */
 const PaginationComponent = ({
   current = 1,
   total = 5,
   pageSize = 1,
-  onPageChange = () => {
-    return;
-  },
 }: PaginationComponentProps) => {
   const pagesCount = Math.ceil(total / pageSize);
 
-  const HeadNTailPart = (start: number, count: number) => {
-    return Array(count)
-      .fill(null)
-      .map((_, index) => {
-        const _index = index + start;
-        return (
-          <PageLink
-            key={start}
-            number={_index}
-            to={"/" + _index}
-            onClick={() => {
-              onPageChange(_index);
-            }}
-          ></PageLink>
-        );
-      });
+  const renderPagination = (items: (string | number)[]): React.ReactNode => {
+    return items.map((item) => {
+      return item !== "*" ? (
+        <PageLink key={item} number={item} to={"/" + item}></PageLink>
+      ) : (
+        <Dots>Other links</Dots>
+      );
+    });
   };
 
-  const DotsPart = (show: boolean, count: number) => {
-    return show ? <Dots>And {count} other links</Dots> : null;
+  const generatePaginationState = (
+    current: number,
+    pagesCount: number
+  ): (string | number)[] => {
+    const states = [1];
+
+    return states;
   };
 
   return (
     <Pagination activePage={current - 1} pageCount={pagesCount}>
       <PreviousLink to={"" + (current - 1)}>Go to previous page</PreviousLink>
-
-      {/* 头部 */}
-
-      {HeadNTailPart(1, pagesCount <= 5 ? pagesCount : 1)}
-      {/* {DotsPart(pagesCount > 5, 2)}
-      {pagesCount > 2 && HeadNTailPart(10, 2)} */}
-
+      {renderPagination([1, 2, 3, "*", 5, 6])}
       <NextLink to={"" + (current + 1)}>Go to next page</NextLink>
     </Pagination>
   );

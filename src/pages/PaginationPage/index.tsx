@@ -1,10 +1,4 @@
-import {
-  HeaderLayout,
-  ContentLayout,
-  Button,
-  Box,
-  Flex,
-} from "@strapi/design-system";
+import { HeaderLayout, ContentLayout, Button } from "@strapi/design-system";
 import { Plus } from "@strapi/icons";
 import Pagination from "@/components/Pagination";
 
